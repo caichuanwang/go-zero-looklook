@@ -2,10 +2,14 @@ package logic
 
 import (
 	"context"
+	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/pb"
+	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/usercenter"
+	"github.com/caichuanwang/go-zero-looklook/app/usercenter/model"
+	"github.com/caichuanwang/go-zero-looklook/common/xerr"
+	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 
 	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/internal/svc"
-	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/pb/pb"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -24,7 +28,16 @@ func NewGetUserAuthByUserIdLogic(ctx context.Context, svcCtx *svc.ServiceContext
 }
 
 func (l *GetUserAuthByUserIdLogic) GetUserAuthByUserId(in *pb.GetUserAuthByUserIdReq) (*pb.GetUserAuthyUserIdResp, error) {
-	// todo: add your logic here and delete this line
 
-	return &pb.GetUserAuthyUserIdResp{}, nil
+	userAuth, err := l.svcCtx.UserAuthModel.FindOneByUserIdAuthType(l.ctx, in.UserId, in.AuthType)
+	if err != nil && err != model.ErrNotFound {
+		return nil, errors.Wrapf(xerr.NewErrMsg("get user auth  fail"), "err : %v , in : %+v", err, in)
+	}
+
+	var respUserAuth usercenter.UserAuth
+	_ = copier.Copy(&respUserAuth, userAuth)
+
+	return &pb.GetUserAuthyUserIdResp{
+		UserAuth: &respUserAuth,
+	}, nil
 }

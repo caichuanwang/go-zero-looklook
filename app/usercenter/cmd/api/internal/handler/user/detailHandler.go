@@ -18,7 +18,7 @@ func DetailHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		}
 
 		l := user.NewDetailLogic(r.Context(), svcCtx)
-		resp, err := l.Detail(&req)
+		resp, err := l.Detail(req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

@@ -3,12 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/pb"
 
 	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/internal/config"
 	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/internal/server"
 	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/internal/svc"
-	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/pb/pb"
-
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/zrpc"

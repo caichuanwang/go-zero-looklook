@@ -5,15 +5,15 @@ package server
 
 import (
 	"context"
+	pb2 "github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/pb"
 
 	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/internal/logic"
 	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/internal/svc"
-	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/pb/pb"
 )
 
 type UsercenterServer struct {
 	svcCtx *svc.ServiceContext
-	pb.UnimplementedUsercenterServer
+	pb2.UnimplementedUsercenterServer
 }
 
 func NewUsercenterServer(svcCtx *svc.ServiceContext) *UsercenterServer {
@@ -22,32 +22,32 @@ func NewUsercenterServer(svcCtx *svc.ServiceContext) *UsercenterServer {
 	}
 }
 
-func (s *UsercenterServer) Login(ctx context.Context, in *pb.LoginReq) (*pb.LoginResp, error) {
+func (s *UsercenterServer) Login(ctx context.Context, in *pb2.LoginReq) (*pb2.LoginResp, error) {
 	l := logic.NewLoginLogic(ctx, s.svcCtx)
 	return l.Login(in)
 }
 
-func (s *UsercenterServer) Register(ctx context.Context, in *pb.RegisterReq) (*pb.RegisterResp, error) {
+func (s *UsercenterServer) Register(ctx context.Context, in *pb2.RegisterReq) (*pb2.RegisterResp, error) {
 	l := logic.NewRegisterLogic(ctx, s.svcCtx)
 	return l.Register(in)
 }
 
-func (s *UsercenterServer) GetUserInfo(ctx context.Context, in *pb.GetUserInfoReq) (*pb.GetUserInfoResp, error) {
+func (s *UsercenterServer) GetUserInfo(ctx context.Context, in *pb2.GetUserInfoReq) (*pb2.GetUserInfoResp, error) {
 	l := logic.NewGetUserInfoLogic(ctx, s.svcCtx)
 	return l.GetUserInfo(in)
 }
 
-func (s *UsercenterServer) GetUserAuthByAuthKey(ctx context.Context, in *pb.GetUserAuthByAuthKeyReq) (*pb.GetUserAuthByAuthKeyResp, error) {
+func (s *UsercenterServer) GetUserAuthByAuthKey(ctx context.Context, in *pb2.GetUserAuthByAuthKeyReq) (*pb2.GetUserAuthByAuthKeyResp, error) {
 	l := logic.NewGetUserAuthByAuthKeyLogic(ctx, s.svcCtx)
 	return l.GetUserAuthByAuthKey(in)
 }
 
-func (s *UsercenterServer) GetUserAuthByUserId(ctx context.Context, in *pb.GetUserAuthByUserIdReq) (*pb.GetUserAuthyUserIdResp, error) {
+func (s *UsercenterServer) GetUserAuthByUserId(ctx context.Context, in *pb2.GetUserAuthByUserIdReq) (*pb2.GetUserAuthyUserIdResp, error) {
 	l := logic.NewGetUserAuthByUserIdLogic(ctx, s.svcCtx)
 	return l.GetUserAuthByUserId(in)
 }
 
-func (s *UsercenterServer) GenerateToken(ctx context.Context, in *pb.GenerateTokenReq) (*pb.GenerateTokenResp, error) {
+func (s *UsercenterServer) GenerateToken(ctx context.Context, in *pb2.GenerateTokenReq) (*pb2.GenerateTokenResp, error) {
 	l := logic.NewGenerateTokenLogic(ctx, s.svcCtx)
 	return l.GenerateToken(in)
 }

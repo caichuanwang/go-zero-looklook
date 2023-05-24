@@ -5,28 +5,27 @@ package usercenter
 
 import (
 	"context"
-
-	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/pb/pb"
+	pb2 "github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/pb"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
 )
 
 type (
-	GenerateTokenReq         = pb.GenerateTokenReq
-	GenerateTokenResp        = pb.GenerateTokenResp
-	GetUserAuthByAuthKeyReq  = pb.GetUserAuthByAuthKeyReq
-	GetUserAuthByAuthKeyResp = pb.GetUserAuthByAuthKeyResp
-	GetUserAuthByUserIdReq   = pb.GetUserAuthByUserIdReq
-	GetUserAuthyUserIdResp   = pb.GetUserAuthyUserIdResp
-	GetUserInfoReq           = pb.GetUserInfoReq
-	GetUserInfoResp          = pb.GetUserInfoResp
-	LoginReq                 = pb.LoginReq
-	LoginResp                = pb.LoginResp
-	RegisterReq              = pb.RegisterReq
-	RegisterResp             = pb.RegisterResp
-	User                     = pb.User
-	UserAuth                 = pb.UserAuth
+	GenerateTokenReq         = pb2.GenerateTokenReq
+	GenerateTokenResp        = pb2.GenerateTokenResp
+	GetUserAuthByAuthKeyReq  = pb2.GetUserAuthByAuthKeyReq
+	GetUserAuthByAuthKeyResp = pb2.GetUserAuthByAuthKeyResp
+	GetUserAuthByUserIdReq   = pb2.GetUserAuthByUserIdReq
+	GetUserAuthyUserIdResp   = pb2.GetUserAuthyUserIdResp
+	GetUserInfoReq           = pb2.GetUserInfoReq
+	GetUserInfoResp          = pb2.GetUserInfoResp
+	LoginReq                 = pb2.LoginReq
+	LoginResp                = pb2.LoginResp
+	RegisterReq              = pb2.RegisterReq
+	RegisterResp             = pb2.RegisterResp
+	User                     = pb2.User
+	UserAuth                 = pb2.UserAuth
 
 	Usercenter interface {
 		Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error)
@@ -49,31 +48,31 @@ func NewUsercenter(cli zrpc.Client) Usercenter {
 }
 
 func (m *defaultUsercenter) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginResp, error) {
-	client := pb.NewUsercenterClient(m.cli.Conn())
+	client := pb2.NewUsercenterClient(m.cli.Conn())
 	return client.Login(ctx, in, opts...)
 }
 
 func (m *defaultUsercenter) Register(ctx context.Context, in *RegisterReq, opts ...grpc.CallOption) (*RegisterResp, error) {
-	client := pb.NewUsercenterClient(m.cli.Conn())
+	client := pb2.NewUsercenterClient(m.cli.Conn())
 	return client.Register(ctx, in, opts...)
 }
 
 func (m *defaultUsercenter) GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error) {
-	client := pb.NewUsercenterClient(m.cli.Conn())
+	client := pb2.NewUsercenterClient(m.cli.Conn())
 	return client.GetUserInfo(ctx, in, opts...)
 }
 
 func (m *defaultUsercenter) GetUserAuthByAuthKey(ctx context.Context, in *GetUserAuthByAuthKeyReq, opts ...grpc.CallOption) (*GetUserAuthByAuthKeyResp, error) {
-	client := pb.NewUsercenterClient(m.cli.Conn())
+	client := pb2.NewUsercenterClient(m.cli.Conn())
 	return client.GetUserAuthByAuthKey(ctx, in, opts...)
 }
 
 func (m *defaultUsercenter) GetUserAuthByUserId(ctx context.Context, in *GetUserAuthByUserIdReq, opts ...grpc.CallOption) (*GetUserAuthyUserIdResp, error) {
-	client := pb.NewUsercenterClient(m.cli.Conn())
+	client := pb2.NewUsercenterClient(m.cli.Conn())
 	return client.GetUserAuthByUserId(ctx, in, opts...)
 }
 
 func (m *defaultUsercenter) GenerateToken(ctx context.Context, in *GenerateTokenReq, opts ...grpc.CallOption) (*GenerateTokenResp, error) {
-	client := pb.NewUsercenterClient(m.cli.Conn())
+	client := pb2.NewUsercenterClient(m.cli.Conn())
 	return client.GenerateToken(ctx, in, opts...)
 }

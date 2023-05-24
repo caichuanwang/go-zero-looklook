@@ -2,6 +2,9 @@ package user
 
 import (
 	"context"
+	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/usercenter"
+	"github.com/caichuanwang/go-zero-looklook/app/usercenter/model"
+	"github.com/jinzhu/copier"
 
 	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/api/internal/svc"
 	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/api/internal/types"
@@ -23,8 +26,18 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 	}
 }
 
-func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
-	// todo: add your logic here and delete this line
+func (l *LoginLogic) Login(req types.LoginReq) (*types.LoginResp, error) {
+	loginResp, err := l.svcCtx.UsercenterRpc.Login(l.ctx, &usercenter.LoginReq{
+		AuthType: model.UserAuthTypeSystem,
+		AuthKey:  req.Mobile,
+		Password: req.Password,
+	})
+	if err != nil {
+		return nil, err
+	}
 
-	return
+	var resp types.LoginResp
+	_ = copier.Copy(&resp, loginResp)
+
+	return &resp, nil
 }

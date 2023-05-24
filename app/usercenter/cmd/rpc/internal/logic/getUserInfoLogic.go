@@ -4,8 +4,12 @@ import (
 	"context"
 
 	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/internal/svc"
-	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/pb/pb"
-
+	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/pb"
+	"github.com/caichuanwang/go-zero-looklook/app/usercenter/cmd/rpc/usercenter"
+	"github.com/caichuanwang/go-zero-looklook/app/usercenter/model"
+	"github.com/caichuanwang/go-zero-looklook/common/xerr"
+	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -24,7 +28,19 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 }
 
 func (l *GetUserInfoLogic) GetUserInfo(in *pb.GetUserInfoReq) (*pb.GetUserInfoResp, error) {
-	// todo: add your logic here and delete this line
 
-	return &pb.GetUserInfoResp{}, nil
+	user, err := l.svcCtx.UserModel.FindOne(l.ctx, in.Id)
+	if err != nil && err != model.ErrNotFound {
+		return nil, errors.Wrapf(xerr.NewErrCode(xerr.DB_ERROR), "GetUserInfo find user db err , id:%d , err:%v", in.Id, err)
+	}
+	if user == nil {
+		return nil, errors.Wrapf(ErrUserNoExistsError, "id:%d", in.Id)
+	}
+	var respUser usercenter.User
+	_ = copier.Copy(&respUser, user)
+
+	return &usercenter.GetUserInfoResp{
+		User: &respUser,
+	}, nil
+
 }

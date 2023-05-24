@@ -18,7 +18,7 @@ func WxMiniAuthHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		}
 
 		l := user.NewWxMiniAuthLogic(r.Context(), svcCtx)
-		resp, err := l.WxMiniAuth(&req)
+		resp, err := l.WxMiniAuth(req)
 		if err != nil {
 			httpx.ErrorCtx(r.Context(), w, err)
 		} else {

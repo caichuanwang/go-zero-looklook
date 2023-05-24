@@ -1,9 +1,62 @@
 syntax = "v1"
 
 info(
-    title: "type title here"
-    desc: "type desc here"
-    author: "type author here"
-    email: "type email here"
-    version: "type version here"
+    title: "用户实例"
+    desc: "用户实例"
+    author: "ccw"
+    email: "caichuanwangf2e@163.com"
+)
+
+type User {
+    Id       int64  `json:"id"`
+    Mobile   string `json:"mobile"`
+    Nickname string `json:"nickname"`
+    Sex      int64  `json:"sex"`
+    Avatar   string `json:"avatar"`
+    Info     string `json:"info"`
+}
+
+type (
+    RegisterReq {
+        Mobile   string `json:"mobile"`
+        Password string `json:"password"`
+    }
+    RegisterResp {
+        AccessToken  string `json:"accessToken"`
+        AccessExpire int64  `json:"accessExpire"`
+        RefreshAfter int64  `json:"refreshAfter"`
+    }
+)
+
+type (
+    LoginReq {
+        Mobile   string `json:"mobile"`
+        Password string `json:"password"`
+    }
+    LoginResp {
+        AccessToken  string `json:"accessToken"`
+        AccessExpire int64  `json:"accessExpire"`
+        RefreshAfter int64  `json:"refreshAfter"`
+    }
+)
+
+type (
+    WXMiniAuthReq {
+        Code          string `json:"code"`
+        IV            string `json:"iv"`
+        EncryptedData string `json:"encryptedData"`
+    }
+    WXMiniAuthResp {
+        AccessToken  string `json:"accessToken"`
+        AccessExpire int64  `json:"accessExpire"`
+        RefreshAfter int64  `json:"refreshAfter"`
+    }
+)
+
+type (
+    UserInfoReq {
+    }
+    UserInfoResp {
+        UserInfo User `json:"userInfo"`
+    }
 )
