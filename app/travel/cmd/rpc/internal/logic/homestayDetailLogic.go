@@ -2,6 +2,10 @@ package logic
 
 import (
 	"context"
+	"github.com/caichuanwang/go-zero-looklook/app/travel/model"
+	"github.com/caichuanwang/go-zero-looklook/common/xerr"
+	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 
 	"github.com/caichuanwang/go-zero-looklook/app/travel/cmd/rpc/internal/svc"
 	"github.com/caichuanwang/go-zero-looklook/app/travel/cmd/rpc/pb"
@@ -25,7 +29,17 @@ func NewHomestayDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ho
 
 // homestayDetail
 func (l *HomestayDetailLogic) HomestayDetail(in *pb.HomestayDetailReq) (*pb.HomestayDetailResp, error) {
-	// todo: add your logic here and delete this line
+	homestay, err := l.svcCtx.HomestayModel.FindOne(l.ctx, in.Id)
+	if err != nil && err != model.ErrNotFound {
+		return nil, errors.Wrapf(xerr.NewErrCode(xerr.DB_ERROR), " HomestayDetail db err , id : %d ", in.Id)
+	}
 
-	return &pb.HomestayDetailResp{}, nil
+	var pbHomestay pb.Homestay
+	if homestay != nil {
+		_ = copier.Copy(&pbHomestay, homestay)
+	}
+
+	return &pb.HomestayDetailResp{
+		Homestay: &pbHomestay,
+	}, nil
 }
