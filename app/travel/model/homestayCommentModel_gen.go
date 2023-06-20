@@ -6,19 +6,19 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"looklook/deploy/script/mysql/genModel"
+	"github.com/caichuanwang/go-zero-looklook/deploy/script/mysql/genModel"
 	"strings"
 
 	"time"
 
 	"github.com/Masterminds/squirrel"
+	"github.com/caichuanwang/go-zero-looklook/common/globalkey"
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/stores/builder"
 	"github.com/zeromicro/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/core/stores/sqlc"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"github.com/zeromicro/go-zero/core/stringx"
-	"looklook/common/globalkey"
 )
 
 var (

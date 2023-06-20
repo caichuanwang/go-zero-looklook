@@ -4,10 +4,10 @@ package handler
 import (
 	"net/http"
 
-	homestay "looklook/app/travel/cmd/api/internal/handler/homestay"
-	homestayBussiness "looklook/app/travel/cmd/api/internal/handler/homestayBussiness"
-	homestayComment "looklook/app/travel/cmd/api/internal/handler/homestayComment"
-	"looklook/app/travel/cmd/api/internal/svc"
+	homestay "github.com/caichuanwang/go-zero-looklook/app/travel/cmd/api/internal/handler/homestay"
+	homestayBussiness "github.com/caichuanwang/go-zero-looklook/app/travel/cmd/api/internal/handler/homestayBussiness"
+	homestayComment "github.com/caichuanwang/go-zero-looklook/app/travel/cmd/api/internal/handler/homestayComment"
+	"github.com/caichuanwang/go-zero-looklook/app/travel/cmd/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )

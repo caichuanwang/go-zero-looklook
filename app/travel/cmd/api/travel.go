@@ -10,7 +10,6 @@ import (
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/rest"
-	"looklook/common/middleware"
 )
 
 var configFile = flag.String("f", "etc/travel.yaml", "the config file")

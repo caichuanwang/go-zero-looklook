@@ -3,8 +3,8 @@ package logic
 import (
 	"context"
 	"encoding/json"
+	"github.com/caichuanwang/go-zero-looklook/app/mqueue/cmd/job/internal/svc"
 	"github.com/caichuanwang/go-zero-looklook/app/mqueue/cmd/job/jobtype"
-	"github.com/caichuanwang/go-zero-looklook/app/mqueue/cmd/job/svc"
 	"github.com/caichuanwang/go-zero-looklook/app/order/cmd/rpc/order"
 	"github.com/caichuanwang/go-zero-looklook/app/order/model"
 	"github.com/caichuanwang/go-zero-looklook/common/xerr"
@@ -19,7 +19,13 @@ type CloseHomestayOrderHandler struct {
 	svcCtx *svc.ServiceContext
 }
 
-func (l *CloseHomestayOrderHandler) ProcessTask(ctx context.Context, t asynq.Task) error {
+func NewCloseHomestayOrderHandler(svcCtx *svc.ServiceContext) *CloseHomestayOrderHandler {
+	return &CloseHomestayOrderHandler{
+		svcCtx: svcCtx,
+	}
+}
+
+func (l *CloseHomestayOrderHandler) ProcessTask(ctx context.Context, t *asynq.Task) error {
 	var p jobtype.DeferCloseHomestayOrderPayload
 	if err := json.Unmarshal(t.Payload(), &p); err != nil {
 		return errors.Wrapf(ErrCloseOrderFal, "closeHomestayOrderStateMqHandler payload err:%v, payLoad:%+v", err, t.Payload())

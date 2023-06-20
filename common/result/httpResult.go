@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"looklook/common/xerr"
+	"github.com/caichuanwang/go-zero-looklook/common/xerr"
 
 	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
